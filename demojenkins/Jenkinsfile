@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'mvn -f demojenkins/pom.xml install'
-                // sh 'mvn -f demojenkins/pom.xml clean package'
+                sh 'mvn -f demojenkins/pom.xml clean install'
+                sh 'mvn -f demojenkins/pom.xml clean package'
             }
         }
 
@@ -20,7 +20,7 @@ pipeline {
                 sh 'docker container stop java-jdk'
                 sh 'docker container rm java-jdk'
 
-                sh 'docker run --name java-jdk -d -v /opt/tomcat/.jenkins/workspace/jog-test-pipeline-java/demojenkins/target:/home -i openjdk'
+                sh 'docker run --name java-jdk -d -v /opt/tomcat/.jenkins/workspace/java-full-pipeline/demojenkins/target:/home -i openjdk'
                 //sh 'docker exec -it java-jdk bash'
                 //sh 'cd /home/'
                 sh 'docker exec java-jdk java -jar /home/demojenkins-0.0.1-SNAPSHOT.war'
