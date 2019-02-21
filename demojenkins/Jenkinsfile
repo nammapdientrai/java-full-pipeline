@@ -23,7 +23,7 @@ pipeline {
                 sh 'docker run --name java-jdk -d -v /opt/tomcat/.jenkins/workspace/java-full-pipeline/demojenkins/target:/home -i openjdk'
                 //sh 'docker exec -it java-jdk bash'
                 //sh 'cd /home/'
-                sh 'docker exec java-jdk java -jar /home/demojenkins-0.0.1-SNAPSHOT.war'
+                sh 'docker exec java-jdk java -jar /home/demojenkins-0.0.1-SNAPSHOT.jar'
             }
         }
 
