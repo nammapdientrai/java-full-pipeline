@@ -5,15 +5,15 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn -f demojenkins/pom.xml clean install'
-                sh 'mvn -f demojenkins/pom.xml clean package'
+                //sh 'mvn -f demojenkins/pom.xml clean package'
             }
         }
 
-        stage('Test') {
-            steps {
-                sh 'mvn -f demojenkins/pom.xml test'
-            }
-        }
+        //stage('Test') {
+          //  steps {
+            //    sh 'mvn -f demojenkins/pom.xml test'
+            //}
+        //}
 
         stage ('Deloy') {
             steps {
@@ -21,10 +21,11 @@ pipeline {
                 sh 'docker container rm java-jdk'
 
                 sh 'docker run --name java-jdk -d -v /opt/tomcat/.jenkins/workspace/java-full-pipeline/demojenkins/target:/home -i openjdk'
-                //sh 'docker exec -it java-jdk bash'
-                //sh 'cd /home/'
-                timeout(time: 3, unit: 'MINUTES') {
-                    sh 'docker exec java-jdk java -jar /home/demojenkins-0.0.1-SNAPSHOT.jar'
+                
+                timeout(time: 1, unit: 'MINUTES') {
+                    retry(1) {
+                        sh 'docker exec java-jdk java -jar /home/demojenkins-0.0.1-SNAPSHOT.jar'
+                    }
                 }
             }
         }
