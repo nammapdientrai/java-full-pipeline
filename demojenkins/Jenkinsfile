@@ -9,12 +9,6 @@ pipeline {
             }
         }
 
-        //stage('Test') {
-          //  steps {
-            //    sh 'mvn -f demojenkins/pom.xml test'
-            //}
-        //}
-
         stage ('Deloy') {
             steps {
                 sh 'docker container stop java-jdk'
