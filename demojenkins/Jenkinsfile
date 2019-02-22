@@ -10,24 +10,10 @@ pipeline {
         }
 
         stage('Setup container JDK') {
-            parallel {
-                stage ('Stop container') {
-                    steps {
-                        sh 'docker container stop java-jdk'
-                    }
-                }
-
-                stage ('Remove container') {
-                    steps {
-                        sh 'docker container rm java-jdk'
-                    }
-                }
-
-                stage ('Create container andd mount volume') {
-                    steps {
-                        sh 'docker run --name java-jdk -d -v /opt/tomcat/.jenkins/workspace/java-full-pipeline/demojenkins/target:/home -i openjdk'
-                    }
-                }               
+            steps {
+                sh 'docker container stop java-jdk'
+                sh 'docker container rm java-jdk'
+                sh 'docker run --name java-jdk -d -v /opt/tomcat/.jenkins/workspace/java-full-pipeline/demojenkins/target:/home -i openjdk'
             }
         }
 
