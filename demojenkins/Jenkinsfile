@@ -10,11 +10,13 @@ pipeline {
         }
 
         stage('Setup container JDK') {
-            agent {
-                label 'Setup JDK'
+            when {
+                branch 'master'
             }
+            
+            failFast true
 
-            stages {
+            parallel {
                 stage ('Stop container') {
                     steps {
                         sh 'docker container stop java-jdk'
@@ -33,12 +35,6 @@ pipeline {
                     }
                 }               
             }
-
-            //steps {
-              //  sh 'docker container stop java-jdk'
-                //sh 'docker container rm java-jdk'
-                //sh 'docker run --name java-jdk -d -v /opt/tomcat/.jenkins/workspace/java-full-pipeline/demojenkins/target:/home -i openjdk'
-            //}
         }
 
         stage ('Deloy') {
