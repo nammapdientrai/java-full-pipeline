@@ -19,7 +19,14 @@ pipeline {
 
         stage ('Deloy') {
             steps {
-                sh 'timeout 120 docker exec java-jdk java -jar /home/demojenkins-0.0.1-SNAPSHOT.jar'
+                timeout(5) {
+                    waitUntil {
+                        script {
+                        def r = sh script: 'docker exec java-jdk java -jar /home/demojenkins-0.0.1-SNAPSHOT.jar', returnStatus: true
+                        return (r == 0);
+                        }
+                    }
+                }    
             }
         }
 
