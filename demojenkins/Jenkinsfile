@@ -10,12 +10,6 @@ pipeline {
         }
 
         stage('Setup container JDK') {
-            when {
-                branch 'master'
-            }
-            
-            failFast true
-
             parallel {
                 stage ('Stop container') {
                     steps {
