@@ -24,3 +24,8 @@ pipeline {
         }
     }
 }
+
+// stage deloy QA
+// - copy file jar to VM 2 
+// - excute command as jenkins file 
+// note: Tao con VM 2, deloy len con VM 2
