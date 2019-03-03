@@ -1,4 +1,15 @@
-pipeline {
+node {
+    stage ("Build") {
+        checkout scm
+
+        docker.image("maven").inside {
+            
+        }
+    }
+}
+
+
+/*pipeline {
     agent any
 
     stages {
@@ -24,6 +35,7 @@ pipeline {
         }
     }
 }
+*/
 
 // stage deloy QA
 // - copy file jar to VM 2 
