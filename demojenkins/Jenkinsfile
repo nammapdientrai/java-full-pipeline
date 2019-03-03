@@ -21,10 +21,8 @@ pipeline {
     stages {
         stage ('Build') {
             steps {
-                //sh 'mvn -f demojenkins/pom.xml clean install'
+                sh 'mvn -f demojenkins/pom.xml clean install'
                 //sh 'mvn -f demojenkins/pom.xml clean package'
-                
-                echo "Build success"
             }
         }
 
