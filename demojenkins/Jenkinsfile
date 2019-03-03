@@ -1,14 +1,19 @@
 node {
     stage ("Build") {
         docker.image("maven").inside {
-            stage ("Build") {
-                //sh "docker run -it --rm --name maven-project -v /root/.jenkins/workspace/java-full-pipeline/demojenkins/:/usr/src/mymaven/ -w /usr/src/mymaven/ maven mvn clean install"
+            post { 
+                success { 
+                    echo "Pull image success"
+                }
+                failure {
+                    echo "Pull image failure"
+                }
             }
         }
     }
 
     stage ("Docker version") {
-            sh "docker --version"
+        sh "docker run -it --rm --name maven-project -v /root/.jenkins/workspace/java-full-pipeline/demojenkins/:/usr/src/mymaven/ -w /usr/src/mymaven/ maven mvn clean install"
     }
 }
 
