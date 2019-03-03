@@ -1,4 +1,4 @@
-node {
+/*node {
     stage ("Build") {
         docker.image("maven").inside {
             
@@ -8,9 +8,11 @@ node {
     stage ("Docker version") {
         sh "docker run --rm --name maven-project -v /root/.jenkins/workspace/java-full-pipeline/demojenkins/:/usr/src/mymaven/ -w /usr/src/mymaven/ maven mvn clean install"
     }
-}
+}*/
 
-/*pipeline {
+API_A = "https://hooks.slack.com/services/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"
+
+pipeline {
     agent any
 
     stages {
@@ -25,7 +27,7 @@ node {
             steps {
                 sh 'docker container stop java-jdk'
                 sh 'docker container rm java-jdk'
-                sh 'docker run --name java-jdk -d -v /opt/tomcat/.jenkins/workspace/java-full-pipeline/demojenkins/target:/home -i openjdk'
+                sh 'docker run --name java-jdk -d -v /root/.jenkins/workspace/java-full-pipeline/demojenkins/target:/home -i openjdk'
             }
         }
 
@@ -35,8 +37,21 @@ node {
             }
         }
     }
+
+    post {
+        success {
+            def NOTIFICATION = '"text":"SUCCESS"'
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION} ${API_A}"
+        }
+
+        failture {
+            def NOTIFICATION = '"text":"FAILTURE"'
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION} ${API_A}"
+        
+        }
+    }
 }
-*/
+
 
 // stage deloy QA
 // - copy file jar to VM 2 
