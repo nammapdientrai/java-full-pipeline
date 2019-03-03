@@ -1,12 +1,8 @@
 node {
     stage ("Build") {
         docker.image("maven").inside {
-            stage ("1") {
-                echo "Stage 1"
-            }
-
-            stage ("2") {
-                echo "Stage 2"
+            stage ("Build") {
+                sh "docker run -it --rm --name maven-project -v /root/.jenkins/workspace/java-full-pipeline/demojenkins:/usr/src/mymaven -w /usr/src/mymaven maven"
             }
         }
     }
