@@ -1,9 +1,13 @@
 node {
     stage ("Build") {
-        checkout scm
-
         docker.image("maven").inside {
-            
+            stage ("1") {
+                echo "Stage 1"
+            }
+
+            stage ("2") {
+                echo "Stage 2"
+            }
         }
     }
 }
