@@ -45,7 +45,7 @@ pipeline {
             sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
         }
 
-        failture {
+        failure {
             sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
         
         }
