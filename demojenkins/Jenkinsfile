@@ -11,6 +11,8 @@
 }*/
 
 API_A = "https://hooks.slack.com/services/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"
+NOTIFICATION_SUCCESS = '"text":"SUCCESS"'
+NOTIFICATION_FAILTURE = '"text":"FAILTURE"'
 
 pipeline {
     agent any
@@ -40,13 +42,11 @@ pipeline {
 
     post {
         success {
-            def NOTIFICATION = '"text":"SUCCESS"'
-            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION} ${API_A}"
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
         }
 
         failture {
-            def NOTIFICATION = '"text":"FAILTURE"'
-            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION} ${API_A}"
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
         
         }
     }
