@@ -1,4 +1,4 @@
-node {
+/*node {
     stage ("Build") {
         docker.image("maven").inside {
             stage ("Build") {
@@ -6,8 +6,7 @@ node {
             }
         }
     }
-}
-
+}*/
 
 /*pipeline {
     agent any
