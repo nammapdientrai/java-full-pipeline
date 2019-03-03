@@ -3,7 +3,7 @@ node {
         docker.image("maven").inside {
             stage ("Build") {
                 //sh "docker run -it --rm --name maven-project -v /root/.jenkins/workspace/java-full-pipeline/demojenkins/:/usr/src/mymaven/ -w /usr/src/mymaven/ maven mvn clean install"
-                sh "docker --version"
+                docker --version
             }
         }
     }
