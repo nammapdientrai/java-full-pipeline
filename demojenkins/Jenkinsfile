@@ -12,8 +12,8 @@
 
 API_A = "https://hooks.slack.com/services/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"
 
-NOTIFICATION_SUCCESS = '{"text":"SUCCESS"}'
-NOTIFICATION_FAILTURE = '{"text":"FAILTURE"}'
+NOTIFICATION_SUCCESS = "'{\"text\":\"SUCCESS\"}''"
+NOTIFICATION_FAILTURE = "'{\"text\":\"FAILTURE\"}''"
 
 pipeline {
     agent any
