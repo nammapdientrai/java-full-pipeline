@@ -6,7 +6,7 @@ node {
     }
 
     stage ("Docker version") {
-        sh "docker run -it --rm --name maven-project -v /root/.jenkins/workspace/java-full-pipeline/demojenkins/:/usr/src/mymaven/ -w /usr/src/mymaven/ -i maven mvn clean install"
+        sh "docker run --rm --name maven-project -v /root/.jenkins/workspace/java-full-pipeline/demojenkins/:/usr/src/mymaven/ -w /usr/src/mymaven/ maven mvn clean install"
     }
 }
 
