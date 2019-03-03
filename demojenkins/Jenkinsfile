@@ -1,16 +1,7 @@
 node {
-    stages ("Build") {
+    stage ("Build") {
         docker.image("maven").inside {
             
-        }
-
-        post { 
-            success { 
-                echo "Pull image success"
-            }
-            failure {
-                echo "Pull image failure"
-            }
         }
     }
 
