@@ -21,6 +21,10 @@ node {
 
             stage ("Test") {
                 sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ clean test"
+            }
+            
+            stage ("Display report") {
+                echo "Display report ...."
             }*/
 
             stage ("Deloy") {
