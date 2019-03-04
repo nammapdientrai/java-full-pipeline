@@ -1,27 +1,19 @@
 node {
     try {
         stage ("Begin") {
-            steps {
-                sh "apt install maven"
-            }
+            sh "apt install maven"
         }
 
         stage ("Build") {
-            steps {
-                sh 'mvn -f demojenkins/pom.xml clean package'
-            }
+            sh 'mvn -f demojenkins/pom.xml clean package'
         }
 
         stage ("Test") {
-            steps {
-                step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-            }
+            step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
         }
 
         stage ("Deloy") {
-            steps {
-                echo 'Deloy ....'
-            }
+            echo 'Deloy ....'
         }
     } catch (e) {
         throw e
