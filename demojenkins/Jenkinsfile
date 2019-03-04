@@ -1,13 +1,6 @@
 pipeline {
     agent any
 
-    parameters {
-        //choice(choices: 'staging\nproduction', description: 'Which environment?', name: 'ENVIRONMENT')
-
-        string(name: 'MAJOR_VERSION', defaultValue: '', description: 'Enter major version tag: ')
-        string(name: 'MINOR_VERSION', defaultValue: '', description: 'Enter minor version tag: ')
-    }
-
     environment {
         COMMAND = "curl -X POST -H 'Content-type: application/json' --data"
 
@@ -17,6 +10,13 @@ pipeline {
 
         NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
         NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE, ${DATE}\"}'"       
+    }
+
+    parameters {
+        //choice(choices: 'staging\nproduction', description: 'Which environment?', name: 'ENVIRONMENT')
+
+        string(name: 'MAJOR_VERSION', defaultValue: '', description: 'Enter major version tag: ')
+        string(name: 'MINOR_VERSION', defaultValue: '', description: 'Enter minor version tag: ')
     }
 
     stages {
