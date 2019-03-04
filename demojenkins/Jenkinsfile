@@ -36,7 +36,7 @@ node {
     } finally {
         def currentResult = currentBuild.result ?: 'SUCCESS'
 
-        def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y')"
+        def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
 
         def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS\", \"date\":\"${DATE}\"}'"
         def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE\", \"date\":\"${DATE}\"}'"
