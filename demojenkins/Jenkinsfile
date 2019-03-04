@@ -78,6 +78,12 @@ pipeline {
             }
         }
 
+        stage ("Report") {
+            steps {
+                step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+            }
+        }
+
         stage('Setup container JDK') {
             steps {
                 sh 'docker container stop java-jdk'
@@ -95,10 +101,10 @@ pipeline {
     }
 
     post {
-        always {
-            archiveArtifacts artifacts: '/root/.jenkins/workspace/java-full-pipeline/demojenkins/target/*.jar', fingerprint: true
-            junit 'build/reports/**/*.xml'
-        }
+        //always {
+          //  archiveArtifacts artifacts: '/root/.jenkins/workspace/java-full-pipeline/demojenkins/target/*.jar', fingerprint: true
+            //junit 'build/reports/**/*.xml'
+        //}
 
         success {
             sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
