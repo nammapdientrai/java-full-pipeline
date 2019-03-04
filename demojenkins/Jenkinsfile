@@ -52,10 +52,6 @@
 }*/
 
 pipeline {
-    agent {
-        docker { image 'maven'}
-    }
-
     environment {
         COMMAND = "curl -X POST -H 'Content-type: application/json' --data"
 
@@ -68,11 +64,34 @@ pipeline {
     }
 
     stages {
+
+
+        
+// -------------------------------------------------------------------------------------
+        agent {
+            docker { image 'maven'}
+        }
+
+        stage ("Checkout scm") {
+            steps {
+                checkout scm
+            }
+        }
+
         stage ("Version maven") {
             steps {
                 sh 'mvn --version'
             }
         }
+
+        stage ("Check path") {
+            steps {
+                sh "cd /root/.jenkins/workspace/java-full-pipeline/demojenkins/ && ls"
+            }
+        }
+// -------------------------------------------------------------------------------------
+
+
 
         stage ('Build') {
             steps {
