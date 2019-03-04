@@ -11,11 +11,11 @@ node {
         }
 
         stage ("Check path") {
-            sh "cd /home/ && ls"
+            sh "cd /var/ && ls"
         }
 
         stage ("Build") {
-            sh "mvn install"
+            sh "mvn  package"
         }
 
         stage ("Test") {
