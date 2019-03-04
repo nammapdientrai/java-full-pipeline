@@ -15,7 +15,7 @@ node {
         }
 
         stage ("Build") {
-            sh "mvn /root/.jenkins/workspace/java-full-pipeline/demojenkins/ package"
+            sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ package"
         }
 
         stage ("Test") {
