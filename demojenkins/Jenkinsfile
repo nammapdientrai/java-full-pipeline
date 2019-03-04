@@ -4,7 +4,7 @@ pipeline {
     parameters {
         //choice(choices: 'staging\nproduction', description: 'Which environment?', name: 'ENVIRONMENT')
 
-        text(name: 'VERSION', defaultValue: '', description: 'Enter version tag: ')
+        string(name: 'VERSION', defaultValue: '', description: 'Enter version tag: ')
     }
 
     environment {
@@ -27,13 +27,15 @@ pipeline {
 
         stage ("Build") {
             steps {
-                sh 'mvn -f demojenkins/pom.xml clean package'
+                //sh 'mvn -f demojenkins/pom.xml clean package'
+                echo "Build ...."
             }
         }
 
         stage ("Test") {
             steps {
-                step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                //step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                echo "Test ...."
             }
         }
 
