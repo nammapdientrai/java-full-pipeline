@@ -53,7 +53,8 @@ pipeline {
 
             echo "Version: ===== v${params.MAJOR_VERSION}.${params.MINOR_VERSION}"
 
-            sh "git tag"
+            sh "git tag v${params.MAJOR_VERSION}.${params.MINOR_VERSION}"
+            sh "git push origin v${params.MAJOR_VERSION}.${params.MINOR_VERSION}"
         }
 
         failure {
