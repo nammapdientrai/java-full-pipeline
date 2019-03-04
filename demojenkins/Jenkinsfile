@@ -41,7 +41,7 @@ pipeline {
 
         stage ("Deloy") {
             steps {
-                echo "Version: ===== ${params.VERSION}"
+                echo "Deloy ...."
             }
         }
     }
@@ -49,6 +49,8 @@ pipeline {
     post {
         success {
             sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
+
+            echo "Version: ===== ${params.VERSION}"
         }
 
         failure {
