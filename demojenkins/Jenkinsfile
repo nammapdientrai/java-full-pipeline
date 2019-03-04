@@ -38,8 +38,8 @@ node {
 
         def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
 
-        def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS\", \"date\":\"${DATE}\"}'"
-        def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE\", \"date\":\"${DATE}\"}'"
+        def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
+        def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE ${DATE}\"}'"
         def API_A = "https://hooks.slack.com/services/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"
         
 
