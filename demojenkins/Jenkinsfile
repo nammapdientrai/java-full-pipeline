@@ -30,9 +30,17 @@ node {
     } catch (e) {
         throw e
     } finally {
-        def currentResult = currentBuild.result ? 'FAILURE': 'SUCCESS'
+        def currentResult = currentBuild.result ?: 'SUCCESS'
 
-        echo "${currentResult}"
+        def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS\"}'"
+        def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE\"}'"
+        def API_A = "https://hooks.slack.com/services/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"
+
+        if (currentResult == 'SUCCESS') {
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
+        } else {
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_FAILTURE} ${API_A}"
+        }
     }
 }
 
