@@ -11,7 +11,7 @@ node {
         }
 
         stage ("Check path") {
-            sh "cd /root/.jenkins/workspace/ && ls"
+            sh "cd /root/.jenkins/workspace/java-full-pipeline/ && ls"
         }
 
         stage ("Build") {
