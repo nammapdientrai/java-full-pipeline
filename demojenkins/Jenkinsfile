@@ -1,7 +1,7 @@
 node {
     try {
         stage ("Begin") {
-            sh "apt install maven"
+            sh "aaapt install maven"
         }
 
         stage ("Build") {
@@ -18,7 +18,7 @@ node {
     } catch (e) {
         throw e
     } finally {
-        def currentResult = currentBuild.result ?: 'SUCCESS'
+        def currentResult = currentBuild.result ? 'FAILURE' : 'SUCCESS'
 
         def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
 
