@@ -39,7 +39,7 @@ pipeline {
 
         stage ("Deloy") {
             steps {
-                echo "${params.VERSION}"
+                echo "Version: ===== ${params.VERSION}"
             }
         }
     }
