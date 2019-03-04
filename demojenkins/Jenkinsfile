@@ -69,12 +69,6 @@ pipeline {
     }
 
     stages {
-        stage ("Checkout scm") {
-            steps {
-                checkout scm
-            }
-        }
-
         stage ('Build') {
             steps {
                 //sh 'mvn -f demojenkins/pom.xml clean install'
