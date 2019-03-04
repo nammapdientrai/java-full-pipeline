@@ -57,9 +57,7 @@
 //NOTIFICATION_FAILTURE = "'{\"text\":\"FAILTURE\"}'"
 
 pipeline {
-    agent {
-        label 'linux && java'
-    }
+    agent any
 
     parameters {
         string(name: 'API_A', defaultValue: 'https://hooks.slack.com/services/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')
