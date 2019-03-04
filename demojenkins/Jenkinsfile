@@ -11,7 +11,7 @@ node {
         }
 
         stage ("Check path") {
-            sh "cd /root/ && ls"
+            sh "cd /root/.jenkins/ && ls"
         }
 
         stage ("Build") {
