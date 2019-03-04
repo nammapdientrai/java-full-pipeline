@@ -53,7 +53,7 @@
 
 pipeline {
     agent any
-    
+
     environment {
         COMMAND = "curl -X POST -H 'Content-type: application/json' --data"
 
@@ -70,11 +70,11 @@ pipeline {
 
 
 // -------------------------------------------------------------------------------------
-        agent {
-            docker { image 'maven'}
-        }
-
         stage ("Checkout scm") {
+            agent {
+                docker { image 'maven'}
+            }
+
             steps {
                 checkout scm
             }
