@@ -4,7 +4,8 @@ pipeline {
     parameters {
         //choice(choices: 'staging\nproduction', description: 'Which environment?', name: 'ENVIRONMENT')
 
-        string(name: 'VERSION', defaultValue: '', description: 'Enter version tag: ')
+        string(name: 'MAJOR_VERSION', defaultValue: '', description: 'Enter major version tag: ')
+        string(name: 'MINOR_VERSION', defaultValue: '', description: 'Enter monor version tag: ')
     }
 
     environment {
@@ -50,7 +51,7 @@ pipeline {
         success {
             sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
 
-            echo "Version: ===== ${params.VERSION}"
+            echo "Version: ===== V${params.MAJOR_VERSION}.${params.MINOR_VERSION}"
         }
 
         failure {
