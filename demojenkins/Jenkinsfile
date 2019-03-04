@@ -14,12 +14,16 @@ node {
             sh "cd /root/.jenkins/workspace/java-full-pipeline/demojenkins/ && ls"
         }
 
-        stage ("Build") {
-            sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ package"
+        /*stage ("Build") {
+            sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ clean package"
         }
 
         stage ("Test") {
-            echo "Test ...."
+            sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ clean test"
+        }*/
+
+        stage ("Deloy") {
+            echo "Deloy ...."
         }
     }
 }
