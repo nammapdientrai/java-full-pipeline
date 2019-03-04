@@ -1,30 +1,48 @@
 node {
-    docker.image("maven").inside {
-        stage ("Clone code Git"){
-            checkout scm
+    try {
+        docker.image("maven").inside {
+            stage ("Clone code Git"){
+                checkout scm
+            }
+
+            stage ("Check environment") {
+                sh "mvn --version"
+                sh "java --version"
+                sh "javac --version"
+            }
+
+            stage ("Check path") {
+                sh "cd /root/.jenkins/workspace/java-full-pipeline/demojenkins/ && ls"
+            }
+
+            /*stage ("Build") {
+                sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ clean package"
+            }
+
+            stage ("Test") {
+                sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ clean test"
+            }*/
+
+            stage ("Deloy") {
+                echo "Deloy ...."
+            }
+        }
+    } catch (e) {
+        echo 'This will run only if failed'
+        throw e
+    } finally {
+        def currentResult = currentBuild.result ?: 'SUCCESS'
+        if (currentResult == 'UNSTABLE') {
+            echo 'This will run only if the run was marked as unstable'
         }
 
-        stage ("Check environment") {
-            sh "mvn --version"
-            sh "java --version"
-            sh "javac --version"
+        def previousResult = currentBuild.previousBuild?.result
+        if (previousResult != null && previousResult != currentResult) {
+            echo 'This will run only if the state of the Pipeline has changed'
+            echo 'For example, if the Pipeline was previously failing but is now successful'
         }
 
-        stage ("Check path") {
-            sh "cd /root/.jenkins/workspace/java-full-pipeline/demojenkins/ && ls"
-        }
-
-        /*stage ("Build") {
-            sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ clean package"
-        }
-
-        stage ("Test") {
-            sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ clean test"
-        }*/
-
-        stage ("Deloy") {
-            echo "Deloy ...."
-        }
+        echo 'This will always run'
     }
 }
 
