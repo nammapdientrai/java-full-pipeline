@@ -11,7 +11,7 @@ node {
         }
 
         stage ("Build") {
-            sh "mvn /root/.jenkins/workspace/java-full-pipeline/pom.xml package"
+            sh "mvn /root/.jenkins/workspace/java-full-pipeline/demojenkins/pom.xml package"
         }
 
         stage ("Test") {
