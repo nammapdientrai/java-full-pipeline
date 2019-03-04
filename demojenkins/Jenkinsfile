@@ -1,7 +1,15 @@
 node {
     docker.image("maven").inside {
-        stage ("Check scm"){
-            check scm
+        stage ("Clone code Git"){
+            checkout scm
+        }
+
+        stage ("Build") {
+            echo "Build ...."
+        }
+
+        stage ("Test") {
+            echo "Test ...."
         }
     }
 }
