@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        label 'Linux - Maven'
+    }
+
+    parameters {
+        choice(choices: 'staging\nproduction', description: 'Which environment?', name: 'ENVIRONMENT')
+    }
 
     environment {
         COMMAND = "curl -X POST -H 'Content-type: application/json' --data"
@@ -9,7 +15,9 @@ pipeline {
         DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
 
         NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
-        NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE, ${DATE}\"}'"        
+        NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE, ${DATE}\"}'"   
+
+        GIT_TAG = sh(returnStdout: true, script: 'git describe --always').trim()     
     }
 
     stages {
