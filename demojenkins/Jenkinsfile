@@ -1,16 +1,12 @@
-/*node {
-    stage ("Build") {
-        docker.image("maven").inside {
-            
+node {
+    docker.image("maven").inside {
+        stage ("Check scm"){
+            check scm
         }
     }
+}
 
-    stage ("Docker version") {
-        sh "docker run --rm --name maven-project -v /root/.jenkins/workspace/java-full-pipeline/demojenkins/:/usr/src/mymaven/ -w /usr/src/mymaven/ maven mvn clean install"
-    }
-}*/
-
-API_A = "https://hooks.slack.com/services/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"
+/*API_A = "https://hooks.slack.com/services/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"
 
 NOTIFICATION_SUCCESS = "'{\"text\":\"SUCCESS\"}'"
 NOTIFICATION_FAILTURE = "'{\"text\":\"FAILTURE\"}'"
@@ -27,7 +23,7 @@ pipeline {
             }
         }
 
-        /*stage('Setup container JDK') {
+        stage('Setup container JDK') {
             steps {
                 sh 'docker container stop java-jdk'
                 sh 'docker container rm java-jdk'
@@ -39,7 +35,7 @@ pipeline {
             steps {
                 sh 'docker exec java-jdk java -jar /home/demojenkins-0.0.1-SNAPSHOT.jar'
             }
-        }*/
+        }
     }
 
     post {
@@ -49,10 +45,9 @@ pipeline {
 
         failure {
             sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
-        
         }
     }
-}
+}*/
 
 
 // stage deloy QA
