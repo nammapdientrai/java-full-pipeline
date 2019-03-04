@@ -2,7 +2,9 @@ pipeline {
     agent any
 
     parameters {
-        choice(choices: 'staging\nproduction', description: 'Which environment?', name: 'ENVIRONMENT')
+        //choice(choices: 'staging\nproduction', description: 'Which environment?', name: 'ENVIRONMENT')
+
+        text(name: 'VERSION', defaultValue: '', description: 'Enter version tag: ')
     }
 
     environment {
@@ -13,9 +15,7 @@ pipeline {
         DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
 
         NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
-        NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE, ${DATE}\"}'"   
-
-        GIT_TAG = sh(returnStdout: true, script: 'git describe --always').trim()     
+        NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE, ${DATE}\"}'"       
     }
 
     stages {
@@ -39,7 +39,7 @@ pipeline {
 
         stage ("Deloy") {
             steps {
-                echo 'Deloy ....'
+                echo "${params.VERSION}"
             }
         }
     }
