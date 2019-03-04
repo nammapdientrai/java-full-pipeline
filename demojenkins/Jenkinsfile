@@ -64,16 +64,9 @@ pipeline {
         DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
         NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
         NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE, ${DATE}\"}'"
-    }
 
-    /*parameters {
-        string(name: 'API_A', defaultValue: 'https://hooks.slack.com/services/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')
-       
-        text(name: 'DATE', defaultValue: sh(returnStdout: true, script: "date +'%d-%m-%y'") )
         
-        string(name: 'NOTIFICATION_SUCCESS', defaultValue: "'{\"text\":\"NAM == SUCCESS, ${params.DATE}\"}'")
-        string(name: 'NOTIFICATION_FAILTURE', defaultValue: "'{\"text\":\"NAM == FAILTURE, ${params.DATE}\"}'")
-    }*/
+    }
 
     stages {
         stage('Example') {
@@ -83,8 +76,8 @@ pipeline {
                 echo "DATE ${NOTIFICATION_FAILTURE}"
             }
         }
-    }
-        /*stage ('Build') {
+
+        stage ('Build') {
             steps {
                 //sh 'mvn -f demojenkins/pom.xml clean install'
                 //sh 'mvn -f demojenkins/pom.xml clean package'
@@ -109,13 +102,13 @@ pipeline {
 
     post {
         success {
-            sh "curl -X POST -H 'Content-type: application/json' --data ${params.NOTIFICATION_SUCCESS} ${params.API_A}"
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
         }
 
         failure {
-            sh "curl -X POST -H 'Content-type: application/json' --data ${params.NOTIFICATION_SUCCESS} ${params.API_A}"
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
         }
-    }*/
+    }
 }
 
 
