@@ -80,7 +80,7 @@ pipeline {
 
         stage ("Check path") {
             steps {
-                sh "cd /root/.jenkins/workspace/java-full-pipeline/demojenkins/ && ls"
+                sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ package"
             }
         }
 // -------------------------------------------------------------------------------------
