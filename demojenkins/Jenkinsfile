@@ -4,8 +4,14 @@ node {
             checkout scm
         }
 
+        stage ("Check environment") {
+            sh "maven --version"
+            sh "java --version"
+            sh "javac --version"
+        }
+
         stage ("Build") {
-            echo "Build ...."
+            sh "mvn package"
         }
 
         stage ("Test") {
