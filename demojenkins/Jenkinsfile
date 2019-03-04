@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH_PROJECT = "${PATH_PROJECT}"
+        PATH_PROJECT = "cd /root/.jenkins/workspace/java-full-pipeline"
 
         COMMAND = "curl -X POST -H 'Content-type: application/json' --data"
 
