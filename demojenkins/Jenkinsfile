@@ -11,7 +11,7 @@ node {
         }
 
         stage ("Check path") {
-            sh "cd /var/ && ls"
+            sh "cd /root/ && ls"
         }
 
         stage ("Build") {
