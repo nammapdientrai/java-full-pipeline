@@ -5,7 +5,7 @@ node {
         }
 
         stage ("Check environment") {
-            sh "maven --version"
+            sh "mvn --version"
             sh "java --version"
             sh "javac --version"
         }
