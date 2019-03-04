@@ -52,7 +52,9 @@
 }*/
 
 pipeline {
-    agent any
+    agent {
+        docker { image 'maven'}
+    }
 
     environment {
         COMMAND = "curl -X POST -H 'Content-type: application/json' --data"
@@ -66,29 +68,32 @@ pipeline {
     }
 
     stages {
+        stage ("Version maven") {
+            steps {
+                sh 'mvn --version'
+            }
+        }
+
         stage ('Build') {
             steps {
-                sh 'mvn -f demojenkins/pom.xml clean package'
+                //sh 'mvn -f demojenkins/pom.xml clean package'
+                echo "Build ...."
             }
         }
 
         stage ("Test") {
             steps {
-                sh 'mvn -f demojenkins/pom.xml clean test'
-            }
-        }
-
-        stage ("Report") {
-            steps {
-                step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                //step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                echo "Test ...."
             }
         }
 
         stage('Setup container JDK') {
             steps {
-                sh 'docker container stop java-jdk'
+                /*sh 'docker container stop java-jdk'
                 sh 'docker container rm java-jdk'
-                sh 'docker run --name java-jdk -d -v /root/.jenkins/workspace/java-full-pipeline/demojenkins/target:/home -i openjdk'
+                sh 'docker run --name java-jdk -d -v /root/.jenkins/workspace/java-full-pipeline/demojenkins/target:/home -i openjdk'*/
+                echo "Setup container JDK ...."
             }
         }
 
@@ -101,11 +106,6 @@ pipeline {
     }
 
     post {
-        //always {
-          //  archiveArtifacts artifacts: '/root/.jenkins/workspace/java-full-pipeline/demojenkins/target/*.jar', fingerprint: true
-            //junit 'build/reports/**/*.xml'
-        //}
-
         success {
             sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
         }
