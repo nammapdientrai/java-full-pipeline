@@ -18,7 +18,7 @@ node {
     } catch (e) {
         throw e
     } finally {
-        def currentResult = currentBuild.result ? 'FAILURE' : 'SUCCESS'
+        def currentResult = currentBuild.result ? 'SUCCESS' : 'FAILURE'
 
         def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
 
