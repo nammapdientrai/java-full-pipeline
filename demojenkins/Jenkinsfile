@@ -51,35 +51,28 @@
     }
 }*/
 
-//API_A = "https://hooks.slack.com/services/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"
-
-//NOTIFICATION_SUCCESS = "'{\"text\":\"SUCCESS\"}'"
-//NOTIFICATION_FAILTURE = "'{\"text\":\"FAILTURE\"}'"
-
 pipeline {
     agent any
 
     environment {
         API_A = 'https://hooks.slack.com/services/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'
+        
         DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
+
         NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
         NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE, ${DATE}\"}'"        
     }
 
     stages {
-        stage ('Example') {
+        stage ('Build') {
             steps {
-                echo "API ${API_A}"
-                echo "DATE ${NOTIFICATION_SUCCESS}"
-                echo "DATE ${NOTIFICATION_FAILTURE}"
+                sh 'mvn -f demojenkins/pom.xml clean package'
             }
         }
 
-        stage ('Build') {
+        stage ("Test") {
             steps {
-                //sh 'mvn -f demojenkins/pom.xml clean install'
-                //sh 'mvn -f demojenkins/pom.xml clean package'
-                echo "Build success"
+                sh 'mvn -f demojenkins/pom.xml clean test'
             }
         }
 
@@ -100,6 +93,11 @@ pipeline {
     }
 
     post {
+        always {
+            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+            junit 'build/reports/**/*.xml'
+        }
+
         success {
             sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
         }
@@ -109,6 +107,8 @@ pipeline {
         }
     }
 }
+
+
 
 
 // stage deloy QA
