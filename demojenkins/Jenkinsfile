@@ -30,7 +30,7 @@ node {
     } catch (e) {
         throw e
     } finally {
-        def currentResult = currentBuild.result ?: 'SUCCESS'
+        def currentResult = currentBuild.result ? 'FAILURE': 'SUCCESS'
 
         echo "${currentResult}"
     }
