@@ -17,11 +17,11 @@ node {
 
             /*stage ("Build") {
                 sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ package"
-            }*/
+            }
 
             stage ("Test") {
                 sh "mvn -f /root/.jenkins/workspace/java-full-pipeline/demojenkins/ test"
-            }
+            }*/
             
             stage ("Display report") {
                 echo "Display report ...."
@@ -36,9 +36,12 @@ node {
     } finally {
         def currentResult = currentBuild.result ?: 'SUCCESS'
 
-        def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS\"}'"
-        def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE\"}'"
+        def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y')"
+
+        def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS\", \"date\":\"${DATE}\"}'"
+        def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE\", \"date\":\"${DATE}\"}'"
         def API_A = "https://hooks.slack.com/services/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"
+        
 
         if (currentResult == 'SUCCESS') {
             sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
