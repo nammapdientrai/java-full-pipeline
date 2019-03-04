@@ -66,7 +66,13 @@ pipeline {
     }
 
     stages {
-        stage ('Build') {
+        stage ("Begin") {
+            steps {
+                sh "apt install maven"
+            }
+        }
+
+        stage ("Build") {
             steps {
                 sh 'mvn -f demojenkins/pom.xml clean package'
             }
@@ -78,7 +84,7 @@ pipeline {
             }
         }
 
-        stage ('Deloy') {
+        stage ("Deloy") {
             steps {
                 //sh "java -jar /root/.jenkins/workspace/java-full-pipeline/demojenkins/target/demojenkins-0.0.1-SNAPSHOT.jar"
 
