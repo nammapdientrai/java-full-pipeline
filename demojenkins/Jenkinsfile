@@ -61,6 +61,9 @@ pipeline {
 
     environment {
         API_A = 'https://hooks.slack.com/services/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'
+        DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
+        NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
+        NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE, ${DATE}\"}'"
     }
 
     /*parameters {
@@ -76,6 +79,8 @@ pipeline {
         stage('Example') {
             steps {
                 echo "API ${API_A}"
+                echo "DATE ${NOTIFICATION_SUCCESS}"
+                echo "DATE ${NOTIFICATION_FAILTURE}"
             }
         }
     }
