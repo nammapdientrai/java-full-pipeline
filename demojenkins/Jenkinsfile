@@ -50,7 +50,7 @@ pipeline {
             //sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
 
             script {
-                for (i = 0; i < 10; i++) {
+                for (i = 0; i < 30; i++) {
                     def version_curent = sh(returnStdout: true, script: "${PATH_PROJECT} && git tag")
 
                     def beforeColon = version_curent.substring(1)
