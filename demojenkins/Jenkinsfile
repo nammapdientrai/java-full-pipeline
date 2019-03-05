@@ -52,7 +52,7 @@ pipeline {
             script {
                 def version_curent = sh(returnStdout: true, script: "${PATH_PROJECT} && git tag")
 
-                echo "${version_curent}"
+                echo "${version_curent} ======="
 
                 //sh "${PATH_PROJECT} && git tag v3.0"
                 //sh "${PATH_PROJECT} && git tag"
