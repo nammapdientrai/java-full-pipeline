@@ -61,7 +61,7 @@ pipeline {
                     sh "${PATH_PROJECT} && git tag -d ${version_curent}"
                     sh "${PATH_PROJECT} && git tag v${version_auto}"
                     
-                    sh "${PATH_PROJECT} && git tag"
+                    sh "${PATH_PROJECT} && git push origin v${version_auto}"
                 }
             }
         }
