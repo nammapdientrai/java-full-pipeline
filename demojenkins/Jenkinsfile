@@ -66,7 +66,7 @@ pipeline {
 
                 sh "${PATH_PROJECT} && git tag v${version_auto}"
 
-                sh "${PATH_PROJECT} && git push origin master v${version_auto}"
+                sh "${PATH_PROJECT} && git push -u origin master v${version_auto}"
 
                 /*sh "${PATH_PROJECT} && git config --global user.name nammapdientrai"
                 sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
