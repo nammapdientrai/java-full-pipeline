@@ -65,6 +65,11 @@ pipeline {
                 double version_auto =  Math.round(rate * 10) / 10 
 
                 sh "${PATH_PROJECT} && git tag v${version_auto}"
+
+                sh "git config --global user.name 'nammapdientrai'"
+                sh "git config --global user.email 'nammapdientrai@gmail.com'"
+                sh "git config --global user.password '025381961@Thn'"
+
                 
                 sh "${PATH_PROJECT} && git push origin v${version_auto}"
             }
