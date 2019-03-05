@@ -51,8 +51,9 @@ pipeline {
 
             script {
                 def version_curent = sh(returnStdout: true, script: "${PATH_PROJECT} && git tag")
+                final beforeColon = version_curent.substring(1)
 
-                echo "=========== ${version_curent} ======="
+                echo "=========== ${beforeColon} ======="
 
                 //sh "${PATH_PROJECT} && git tag v3.0"
                 //sh "${PATH_PROJECT} && git tag"
