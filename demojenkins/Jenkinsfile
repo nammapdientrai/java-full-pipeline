@@ -51,7 +51,7 @@ pipeline {
             //sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
 
             script {
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 20; i++) {
                     def version_curent = sh(returnStdout: true, script: "${PATH_PROJECT} && git tag")
 
                     if (version_curent == "") {
