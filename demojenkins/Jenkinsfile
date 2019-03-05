@@ -51,34 +51,26 @@ pipeline {
             //sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
 
             script {
-                def version_curent = sh(returnStdout: true, script: "${PATH_PROJECT} && git tag")
+                for (int i = 0; i < 10; i++) {
+                    def version_curent = sh(returnStdout: true, script: "${PATH_PROJECT} && git tag")
 
-                if (version_curent == "") {
-                    version_curent = "v0.0"
-                } else{
-                    sh "${PATH_PROJECT} && git tag -d ${version_curent}"
+                    if (version_curent == "") {
+                        version_curent = "v0.0"
+                    } else{
+                        sh "${PATH_PROJECT} && git tag -d ${version_curent}"
+                    }
+
+                    def beforeColon = version_curent.substring(1)
+                    double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
+
+                    double version_auto =  Math.round(rate * 10) / 10 
+
+                    sh "${PATH_PROJECT} && git tag v${version_auto}"
+
+                    sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
+
+                    sh "${PATH_PROJECT} && git push origin v${version_auto}"
                 }
-
-                def beforeColon = version_curent.substring(1)
-                double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
-
-                double version_auto =  Math.round(rate * 10) / 10 
-
-                sh "${PATH_PROJECT} && git tag v${version_auto}"
-
-                sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
-
-                sh "${PATH_PROJECT} && git push origin v${version_auto}"
-
-                /*withCredentials([usernamePassword(credentialsId: '20f9d1b6-b355-44fe-854a-4f8bd5bdc3e4', 
-                                                  passwordVariable: 'GIT_PASSWORD', 
-                                                  usernameVariable: 'GIT_USERNAME')]) {
-                    sh("git push origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git v${version_auto}")
-                }*/
-
-                /*sh "${PATH_PROJECT} && git config --global user.name nammapdientrai"
-                sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
-                sh "${PATH_PROJECT} && git config --global user.password Thn@025381961"*/
             }
         }
 
