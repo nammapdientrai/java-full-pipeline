@@ -50,10 +50,12 @@ pipeline {
             //sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
 
             script {
-                for (i = 0; i < 30; i++) {
-                    def version_curent = sh(returnStdout: true, script: "${PATH_PROJECT} && git tag")
+                def version_curent = sh(returnStdout: true, script: "${PATH_PROJECT} && git tag")
 
-                    def beforeColon = version_curent.substring(1)
+                if (version_curent != null) {
+                    echo "${version_curent}"
+
+                    /*def beforeColon = version_curent.substring(1)
                     double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
 
                     double version_auto =  Math.round(rate * 10) / 10 
@@ -61,7 +63,9 @@ pipeline {
                     sh "${PATH_PROJECT} && git tag -d ${version_curent}"
                     sh "${PATH_PROJECT} && git tag v${version_auto}"
                     
-                    sh "${PATH_PROJECT} && git push origin v${version_auto}"
+                    sh "${PATH_PROJECT} && git push origin v${version_auto}"*/
+                } else{
+                    echo "Version null"
                 }
             }
         }
