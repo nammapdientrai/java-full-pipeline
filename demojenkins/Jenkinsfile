@@ -53,7 +53,7 @@ pipeline {
             script {
                 def version_curent = sh(returnStdout: true, script: "${PATH_PROJECT} && git tag")
 
-                if (version_curent != null) {
+                if (version_curent != "") {
                     echo "${version_curent}"
 
                     /*def beforeColon = version_curent.substring(1)
@@ -68,8 +68,6 @@ pipeline {
                 } else{
                     echo "Version null"
                 }
-
-                echo "sdkjkjhsaskak"
             }
         }
 
