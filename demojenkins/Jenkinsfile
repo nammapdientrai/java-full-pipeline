@@ -46,11 +46,13 @@ pipeline {
         success {
             sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
 
-            sh "${PATH_PROJECT} && git config --global user.name nammapdientrai"
-            sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
+            //sh "${PATH_PROJECT} && git config --global user.name nammapdientrai"
+            //sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
 
-            sh "${PATH_PROJECT} && git tag v2.0"
-            sh "${PATH_PROJECT} && git tag"
+            script {
+                sh "${PATH_PROJECT} && git tag v2.0"
+                sh "${PATH_PROJECT} && git tag"
+            }
         }
 
         failure {
