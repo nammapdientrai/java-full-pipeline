@@ -54,10 +54,10 @@ pipeline {
                 def beforeColon = version_curent.substring(1)
                 def version_auto = Double.parseDouble("${beforeColon}") + 0.1
 
-                echo "=========== ${version_auto} ======="
-
-                //sh "${PATH_PROJECT} && git tag v3.0"
-                //sh "${PATH_PROJECT} && git tag"
+                sh "${PATH_PROJECT} && git tag -d ${version_curent}"
+                sh "${PATH_PROJECT} && git tag ${version_auto}"
+                
+                sh "${PATH_PROJECT} && git tag"
             }
         }
 
