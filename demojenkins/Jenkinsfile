@@ -66,13 +66,15 @@ pipeline {
 
                 sh "${PATH_PROJECT} && git tag v${version_auto}"
 
-                //sh "${PATH_PROJECT} && git push origin v${version_auto}"
+                sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
 
-                withCredentials([usernamePassword(credentialsId: '20f9d1b6-b355-44fe-854a-4f8bd5bdc3e4', 
+                sh "${PATH_PROJECT} && git push origin v${version_auto}"
+
+                /*withCredentials([usernamePassword(credentialsId: '20f9d1b6-b355-44fe-854a-4f8bd5bdc3e4', 
                                                   passwordVariable: 'GIT_PASSWORD', 
                                                   usernameVariable: 'GIT_USERNAME')]) {
-                    sh("git push origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nammapdientrai/java-full-pipeline.git v${version_auto}")
-                }
+                    sh("git push origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git v${version_auto}")
+                }*/
 
                 /*sh "${PATH_PROJECT} && git config --global user.name nammapdientrai"
                 sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
