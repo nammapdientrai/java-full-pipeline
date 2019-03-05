@@ -66,12 +66,12 @@ pipeline {
 
                 sh "${PATH_PROJECT} && git tag v${version_auto}"
 
-                //sh "${PATH_PROJECT} && git push origin v${version_auto}"
+                sh "${PATH_PROJECT} && git push origin v${version_auto}"
 
-                withCredentials([usernamePassword(passwordVariable: 'GIT_PASSWORD', 
+                /*withCredentials([usernamePassword(passwordVariable: 'GIT_PASSWORD', 
                                                   usernameVariable: 'GIT_USERNAME')]) {
                     sh("git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> origin v${version_auto}")
-                }
+                }*/
 
                 /*sh "${PATH_PROJECT} && git config --global user.name nammapdientrai"
                 sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
