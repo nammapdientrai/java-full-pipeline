@@ -68,10 +68,10 @@ pipeline {
 
                 //sh "${PATH_PROJECT} && git push origin v${version_auto}"
 
-                withCredentials([usernamePassword(credentialsId: 'e2958f17-7119-4924-8adb-86974d4bc701', 
+                withCredentials([usernamePassword(credentialsId: '20f9d1b6-b355-44fe-854a-4f8bd5bdc3e4', 
                                                   passwordVariable: 'GIT_PASSWORD', 
                                                   usernameVariable: 'GIT_USERNAME')]) {
-                    sh("git push origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/java-full-pipeline.git v${version_auto}")
+                    sh("git push origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/nammapdientrai/java-full-pipeline.git v${version_auto}")
                 }
 
                 /*sh "${PATH_PROJECT} && git config --global user.name nammapdientrai"
