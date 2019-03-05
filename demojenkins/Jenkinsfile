@@ -68,7 +68,7 @@ pipeline {
 
                 sh "${PATH_PROJECT} && git config --global user.name 'nammapdientrai'"
                 sh "${PATH_PROJECT} && git config --global user.email 'nammapdientrai@gmail.com'"
-                sh "${PATH_PROJECT} && git config --global user.password '025381961@Thn'"
+                sh "${PATH_PROJECT} && git config --global user.password 'Thn@025381961'"
 
                 
                 sh "${PATH_PROJECT} && git push origin v${version_auto}"
