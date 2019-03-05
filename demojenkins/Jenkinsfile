@@ -14,13 +14,6 @@ pipeline {
         NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE, ${DATE}\"}'"       
     }
 
-    parameters {
-        //choice(choices: 'staging\nproduction', description: 'Which environment?', name: 'ENVIRONMENT')
-
-        string(name: 'MAJOR_VERSION', defaultValue: '', description: 'Enter major version tag: ')
-        string(name: 'MINOR_VERSION', defaultValue: '', description: 'Enter minor version tag: ')
-    }
-
     stages {
         stage ("Begin") {
             steps {
@@ -55,12 +48,6 @@ pipeline {
 
             sh "${PATH_PROJECT} && git config --global user.name nammapdientrai"
             sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
-
-            echo "Version: ===== v${params.MAJOR_VERSION}.${params.MINOR_VERSION}"
-
-            sh "${PATH_PROJECT} && git tag v${params.MAJOR_VERSION}.${params.MINOR_VERSION}"
-
-            sh "${PATH_PROJECT} && git push origin v${params.MAJOR_VERSION}.${params.MINOR_VERSION}"
         }
 
         failure {
