@@ -38,8 +38,8 @@ pipeline {
 
         stage ("Deloy") {
             steps {
-                //sh "cd /home/namth22/ansible-playbook && ansible-playbook java-deloy.yml -i hosts -u namth22"
-                echo "Deloy ...."
+                sh "cd /home/namth22/ansible-playbook && ansible-playbook java-deloy.yml -i hosts -u namth22 -K nam123456"
+                //echo "Deloy ...."
             }
         }
     }
