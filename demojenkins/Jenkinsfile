@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PATH_PROJECT = "cd /root/.jenkins/workspace/java-full-pipeline"
+        PATH_PROJECT = "/root/.jenkins/workspace/java-full-pipeline"
 
         COMMAND = "curl -X POST -H 'Content-type: application/json' --data"
 
@@ -67,7 +67,7 @@ pipeline {
 
                     double version_auto =  Math.round(rate * 10) / 10 
 
-                    sh "${PATH_PROJECT} && git tag v${version_auto}"
+                    sh " cd ${PATH_PROJECT} && git tag v${version_auto}"
 
                     sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
 
