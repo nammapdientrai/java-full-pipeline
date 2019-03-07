@@ -38,6 +38,7 @@ pipeline {
 
         stage ("Deloy") {
             steps {
+                sh "${PATH_PROJECT}/demojenkins/target/ && cp demojenkins-0.0.1-SNAPSHOT.jar /home/namth22/artifact/"
                 sh "cd /home/namth22/ansible-playbook && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
                 //echo "Deloy ...."
             }
