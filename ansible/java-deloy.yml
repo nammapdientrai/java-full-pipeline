@@ -2,10 +2,10 @@
   remote_user: namth22
 
   tasks:
-    - name: Install and Update "Maven" package
-      apt:
-        name: maven
-        update_cache: yes
+    #  - name: Install and Update "Maven" package
+    #   apt:
+    #   name: maven
+    #  update_cache: yes
 
     - name: Copy Artifact
       copy:
@@ -14,3 +14,19 @@
         owner: root
         group: root
         mode: 0777
+
+    - name: Create file .sh run
+      copy:
+        dest: "/home/namth22/artifact/run.sh"
+        content: |
+          java -jar /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar    
+
+    - name: Set permission run.sh
+      file:
+        path: "/home/namth22/artifact/run.sh"
+        state: touch
+        mode: 0777
+        owner: namth22
+
+    - name: Run app java
+      command: sh /home/namth22/artifact/run.sh
