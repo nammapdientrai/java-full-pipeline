@@ -1,0 +1,16 @@
+- hosts: 192.168.56.102
+  remote_user: namth22
+
+  tasks:
+    - name: Install and Update "Maven" package
+      apt:
+        name: maven
+        update_cache: yes
+
+    - name: Copy Artifact
+      copy:
+        src: /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar
+        dest: /home/namth22/artifact/
+        owner: root
+        group: root
+        mode: 0777
