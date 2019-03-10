@@ -14,28 +14,27 @@
         owner: root
         group: root
         mode: 0777
-
+    # --------------------------------------------------
     #- name: Create file .sh run
     # copy:
     #  dest: "/home/namth22/artifact/run.sh"
     # content: |
     #  timeout 90 java -jar /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar
-
+    # --------------------------------------------------
     #- name: Set permission run.sh
     # file:
     #  path: "/home/namth22/artifact/run.sh"
     # state: touch
     #mode: 0777
     #owner: namth22
-
-    - name: Wait for server to restart
-      command: java -jar /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar
-      local_action:
-        module: wait_for
-          host=192.168.56.102
-          port=8888
-          delay=10
-          timeout=100
-
-    - name: Run app Java
-      command: java -jar /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar
+    # --------------------------------------------------
+    #- name: Wait for server to restart
+    # local_action:
+    #  module: wait_for
+    #   host=192.168.56.102
+    #  port=8888
+    # delay=10
+    #timeout=100
+    # --------------------------------------------------
+    #- name: Run app Java
+    # command: java -jar /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar
