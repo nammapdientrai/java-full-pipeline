@@ -19,7 +19,7 @@
       copy:
         dest: "/home/namth22/artifact/run.sh"
         content: |
-          java -jar /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar    
+          timeout 90 java -jar /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar    
 
     - name: Set permission run.sh
       file:
