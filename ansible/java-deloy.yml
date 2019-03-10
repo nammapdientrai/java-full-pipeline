@@ -36,4 +36,4 @@
         state: drained
 
     - name: Run app Java
-      command: timeout 90 java -jar /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar
+      command: java -jar /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar
