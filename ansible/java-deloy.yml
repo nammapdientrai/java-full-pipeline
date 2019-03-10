@@ -28,10 +28,12 @@
     #mode: 0777
     #owner: namth22
 
-    - name: Run app java
-      command: timeout 90 java -jar /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar
+    - name: Condition
       wait_for:
-       host: 192.168.56.102
-       port: 8888
-       delay: 10
-       state: drained
+        host: 192.168.56.102
+        port: 8888
+        delay: 10
+        state: drained
+
+    - name: Run app Java
+      command: timeout 90 java -jar /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar
