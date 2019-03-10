@@ -68,7 +68,9 @@ pipeline {
 
     post {
         success {
-            sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
+            echo "SUCCESS"
+
+            //sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
 
             //sh "${PATH_PROJECT} && git config --global user.name nammapdientrai"
             //sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
@@ -98,7 +100,8 @@ pipeline {
         }
 
         failure {
-            sh "${COMMAND} ${NOTIFICATION_FAILTURE} ${API_A}"
+            echo "FAIL"
+            //sh "${COMMAND} ${NOTIFICATION_FAILTURE} ${API_A}"
         }
     }
 }
