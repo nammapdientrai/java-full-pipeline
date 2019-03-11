@@ -73,7 +73,7 @@ pipeline {
                 if (version_curent == "" || version_curent == null) {
                     version_curent = "v0.0"
                 } else{
-                    echo "git tag"
+                    sh "git tag"
                     //sh "git tag -d ${version_curent}"
                 }
 
