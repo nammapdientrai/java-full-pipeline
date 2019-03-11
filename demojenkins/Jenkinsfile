@@ -65,6 +65,10 @@ pipeline {
             script {
                 def version_curent = sh(returnStdout: true, script: "git tag")
 
+                def list = ["A", "B", "C"]
+
+                echo "${list.size()}"
+
                 if (version_curent == "" || version_curent == null) {
                     version_curent = "v0.0"
                     //sh "git tag ${version_curent}"
