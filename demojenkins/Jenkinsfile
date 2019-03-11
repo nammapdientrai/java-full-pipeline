@@ -1,95 +1,36 @@
-pipeline {
-    agent any
-
-    environment {
-        COMMAND = "curl -X POST -H 'Content-type: application/json' --data"
-
-        API_A = 'https://hooks.slack.com/services/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'
-        
-        DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
-
-        NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
-        NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE, ${DATE}\"}'"     
-    }
-
-    stages {
+node {
+    try {
         stage ("Begin") {
-            steps {
-                sh "apt install maven"
-                echo "Begin ...."
-            }
+            sh "apt install maven"
         }
 
         stage ("Build") {
-            steps {
-                sh 'mvn -f demojenkins/pom.xml clean package'
-                echo "Build ...."
-            }
+            sh 'mvn -f demojenkins/pom.xml clean package'
         }
 
         stage ("Test") {
-            steps {
-                step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-                echo "Test ...."
-            }
-        }
-
-        stage('Sonarqube') {
-            steps {
-                sh 'mvn -f demojenkins/pom.xml sonar:sonar \
-                        -Dsonar.projectKey=jenkins \
-                        -Dsonar.host.url=http://172.17.0.2:9000 \
-                        -Dsonar.login=61526cfd42034319c30921a2a3445378684fcfcb'
-            }
+            step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
         }
 
         stage ("Deloy") {
-            steps {
-                sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && cp demojenkins-0.0.1-SNAPSHOT.jar /home/namth22/artifact/"
-                sh "chmod 777 -R /home/namth22/artifact/."
-                
-                sh "cd /root/.jenkins/workspace/java-full-deloy/ansible && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
-                
-                //sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && java -jar demojenkins-0.0.1-SNAPSHOT.jar"
-                //sh "cd /home/namth22/ansible-playbook && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
-
-                echo "Deloy ...."
-            }
+            echo 'Deloy ....'
         }
-    }
+    } catch (e) {
+        throw e
+    } finally {
+        def currentResult = currentBuild.result ? 'SUCCESS' : 'FAILURE'
 
-    post {
-        success {
-            script {
-                def version_curent = sh(returnStdout: true, script: "git tag")
-                def l = (ArrayList<String>) version_curent.split()
+        def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
 
-                if (l.size() == 0) {
-                    l.add("v0.0")
-                } 
+        def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
+        def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE ${DATE}\"}'"
+        def API_A = "https://hooks.slack.com/services/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"
         
-                def beforeColon = l.pop().substring(1)
-                double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
 
-                double version_auto =  Math.round(rate * 10) / 10 
-
-                sh "git tag v${version_auto}"
-                sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
-                sh "git push origin v${version_auto}"
-
-                sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
-                echo "SUCCESS"
-            }
-        }
-
-        failure {
-            sh "${COMMAND} ${NOTIFICATION_FAILTURE} ${API_A}"
-            echo "FAIL"
+        if (currentResult == 'SUCCESS') {
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
+        } else {
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_FAILTURE} ${API_A}"
         }
     }
 }
-
-
-
-
-// stage deloy QA
