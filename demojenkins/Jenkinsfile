@@ -17,100 +17,85 @@ pipeline {
     stages {
         stage ("Begin") {
             steps {
-                sh "apt install maven"
-                //echo "Begin ...."
+                //sh "apt install maven"
+                echo "Begin ...."
             }
         }
 
         stage ("Build") {
             steps {
-                sh 'mvn -f demojenkins/pom.xml clean package'
-                //echo "Build ...."
+                //sh 'mvn -f demojenkins/pom.xml clean package'
+                echo "Build ...."
             }
         }
 
         stage ("Test") {
             steps {
-                step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-                //echo "Test ...."
+                //step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                echo "Test ...."
             }
         }
 
-        stage('Sonarqube') {
-            /*environment {
-                scannerHome = tool 'SonarQubeScanner'
-            }
-
-            steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                    echo "aaa 1"
-                }
-
-                timeout(time: 2, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }*/
-
+        /*stage('Sonarqube') {
             steps {
                 sh 'mvn -f demojenkins/pom.xml sonar:sonar \
                         -Dsonar.projectKey=jenkins \
                         -Dsonar.host.url=http://172.17.0.2:9000 \
                         -Dsonar.login=61526cfd42034319c30921a2a3445378684fcfcb'
-
             }
-        }
+        }*/
 
         stage ("Deloy") {
             steps {
-                sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && cp demojenkins-0.0.1-SNAPSHOT.jar /home/namth22/artifact/"
+                /*sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && cp demojenkins-0.0.1-SNAPSHOT.jar /home/namth22/artifact/"
                 sh "chmod 777 -R /home/namth22/artifact/."
                 
-                sh "cd /root/.jenkins/workspace/java-full-deloy/ansible && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
+                sh "cd /root/.jenkins/workspace/java-full-deloy/ansible && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"*/
                 
                 //sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && java -jar demojenkins-0.0.1-SNAPSHOT.jar"
                 //sh "cd /home/namth22/ansible-playbook && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
-                //echo "Deloy ...."
+
+                echo "Deloy ...."
             }
         }
     }
 
     post {
         success {
-            //echo "SUCCESS"
+            echo "SUCCESS"
 
-            sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
+            //sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
 
             //sh "${PATH_PROJECT} && git config --global user.name nammapdientrai"
             //sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
 
-            /*script {
-                for (int i = 0; i < 20; i++) {
-                    def version_curent = sh(returnStdout: true, script: "${PATH_PROJECT} && git tag")
+            script {
+                def version_curent = sh(returnStdout: true, script: "${PATH_PROJECT} && git tag")
 
-                    if (version_curent == "") {
-                        version_curent = "v0.0"
-                    } else{
-                        sh "${PATH_PROJECT} && git tag -d ${version_curent}"
-                    }
+                echo "${version_curent}"
 
-                    def beforeColon = version_curent.substring(1)
-                    double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
-
-                    double version_auto =  Math.round(rate * 10) / 10 
-
-                    sh " cd ${PATH_PROJECT} && git tag v${version_auto}"
-
-                    sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
-
-                    sh "${PATH_PROJECT} && git push origin v${version_auto}"
+                /*if (version_curent == "") {
+                    version_curent = "v0.0"
+                } else{
+                    sh "${PATH_PROJECT} && git tag -d ${version_curent}"
                 }
-            }*/
+
+                def beforeColon = version_curent.substring(1)
+                double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
+
+                double version_auto =  Math.round(rate * 10) / 10 
+
+                sh " cd ${PATH_PROJECT} && git tag v${version_auto}"
+
+                sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
+
+                sh "${PATH_PROJECT} && git push origin v${version_auto}"*/
+            }
         }
 
         failure {
-            //echo "FAIL"
-            sh "${COMMAND} ${NOTIFICATION_FAILTURE} ${API_A}"
+            echo "FAIL"
+            //sh "${COMMAND} ${NOTIFICATION_FAILTURE} ${API_A}"
         }
     }
 }
