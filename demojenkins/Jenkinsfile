@@ -37,7 +37,7 @@ pipeline {
         }
 
         stage('Sonarqube') {
-            environment {
+            /*environment {
                 scannerHome = tool 'SonarQubeScanner'
             }
 
@@ -50,6 +50,14 @@ pipeline {
                 timeout(time: 2, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
+            }*/
+
+            steps {
+                sh "cd ${PATH_PROJECT}/demojenkins/ && mvn sonar:sonar \ 
+                        -Dsonar.projectKey=jenkins \ 
+                        -Dsonar.host.url=http://172.17.0.2:9000 \ 
+                        -Dsonar.login=61526cfd42034319c30921a2a3445378684fcfcb"
+
             }
         }
 
