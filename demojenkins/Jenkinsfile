@@ -68,19 +68,16 @@ pipeline {
             //sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
 
             script {
-                sh 'git tag v0.1'
-                
                 def version_curent = sh(returnStdout: true, script: "git tag")
 
-                echo "${version_curent}"
-
-                /*if (version_curent == "") {
+                if (version_curent == "" || version_curent == null) {
                     version_curent = "v0.0"
                 } else{
-                    sh "${PATH_PROJECT} && git tag -d ${version_curent}"
+                    echo "git tag"
+                    //sh "git tag -d ${version_curent}"
                 }
 
-                def beforeColon = version_curent.substring(1)
+                /*def beforeColon = version_curent.substring(1)
                 double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
 
                 double version_auto =  Math.round(rate * 10) / 10 
