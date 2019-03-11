@@ -67,7 +67,7 @@ pipeline {
                 def l = version_curent.split()
 
                 if (l.size() == 0) {
-                    l.add("v0.0")
+                    l.add('v0.0')
                 } 
         
                 def beforeColon = l.pop().substring(1)
