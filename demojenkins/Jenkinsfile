@@ -70,7 +70,7 @@ pipeline {
             //sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
 
             script {
-                def version_curent = sh(returnStdout: true, script: "cd ${PATH_PROJECT} && git tag")
+                def version_curent = sh(returnStdout: true, script: "git tag")
 
                 echo "${version_curent}"
 
