@@ -53,7 +53,7 @@ pipeline {
             }*/
 
             steps {
-                sh 'mvn sonar:sonar \
+                sh 'mvn -f demojenkins/pom.xml sonar:sonar \
                         -Dsonar.projectKey=jenkins \
                         -Dsonar.host.url=http://172.17.0.2:9000 \
                         -Dsonar.login=61526cfd42034319c30921a2a3445378684fcfcb'
