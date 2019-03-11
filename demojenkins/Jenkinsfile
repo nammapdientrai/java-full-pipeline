@@ -69,6 +69,7 @@ pipeline {
 
                 if (version_curent == "" || version_curent == null) {
                     version_curent = "v0.0"
+                    sh "git tag ${version_auto}"
                 } 
 
                 def beforeColon = version_curent.substring(1)
