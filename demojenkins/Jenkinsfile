@@ -71,23 +71,20 @@ pipeline {
                 def version_curent = sh(returnStdout: true, script: "git tag")
 
                 if (version_curent == "" || version_curent == null) {
-                    echo "null and empty"
-                } else{
-                    sh "git tag"
-                    echo "okokoko"
-                    //sh "git tag -d ${version_curent}"
-                }
+                    version_curent = "v0.0"
+                } 
 
-                /*def beforeColon = version_curent.substring(1)
+                def beforeColon = version_curent.substring(1)
                 double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
 
                 double version_auto =  Math.round(rate * 10) / 10 
 
-                sh " cd ${PATH_PROJECT} && git tag v${version_auto}"
-
+                sh "git tag v${version_auto}"
                 sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
+                sh "git push origin v${version_auto}"
 
-                sh "${PATH_PROJECT} && git push origin v${version_auto}"*/
+                sh "git tag -d ${version_curent}"
+                sh "git tag -d v${version_auto}"
             }
         }
 
