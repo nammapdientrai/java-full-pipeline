@@ -15,40 +15,40 @@ pipeline {
     stages {
         stage ("Begin") {
             steps {
-                //sh "apt install maven"
+                sh "apt install maven"
                 echo "Begin ...."
             }
         }
 
         stage ("Build") {
             steps {
-                //sh 'mvn -f demojenkins/pom.xml clean package'
+                sh 'mvn -f demojenkins/pom.xml clean package'
                 echo "Build ...."
             }
         }
 
         stage ("Test") {
             steps {
-                //step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
                 echo "Test ...."
             }
         }
 
-       /* stage('Sonarqube') {
+        stage('Sonarqube') {
             steps {
                 sh 'mvn -f demojenkins/pom.xml sonar:sonar \
                         -Dsonar.projectKey=jenkins \
                         -Dsonar.host.url=http://172.17.0.2:9000 \
                         -Dsonar.login=61526cfd42034319c30921a2a3445378684fcfcb'
             }
-        }*/
+        }
 
         stage ("Deloy") {
             steps {
-                /*sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && cp demojenkins-0.0.1-SNAPSHOT.jar /home/namth22/artifact/"
+                sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && cp demojenkins-0.0.1-SNAPSHOT.jar /home/namth22/artifact/"
                 sh "chmod 777 -R /home/namth22/artifact/."
                 
-                sh "cd /root/.jenkins/workspace/java-full-deloy/ansible && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"*/
+                sh "cd /root/.jenkins/workspace/java-full-deloy/ansible && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
                 
                 //sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && java -jar demojenkins-0.0.1-SNAPSHOT.jar"
                 //sh "cd /home/namth22/ansible-playbook && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
@@ -60,8 +60,6 @@ pipeline {
 
     post {
         success {
-            //sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
-
             script {
                 def version_curent = sh(returnStdout: true, script: "git tag")
                 def l = (ArrayList<String>) version_curent.split()
@@ -79,13 +77,14 @@ pipeline {
                 sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
                 sh "git push origin v${version_auto}"
 
+                sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
                 echo "SUCCESS"
             }
         }
 
         failure {
+            sh "${COMMAND} ${NOTIFICATION_FAILTURE} ${API_A}"
             echo "FAIL"
-            //sh "${COMMAND} ${NOTIFICATION_FAILTURE} ${API_A}"
         }
     }
 }
