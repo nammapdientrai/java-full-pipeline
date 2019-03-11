@@ -66,8 +66,10 @@ pipeline {
                 def version_curent = sh(returnStdout: true, script: "git tag")
                 def l = version_curent.split()
 
+                echo "${version_curent} =============="
+
                 if (l.size() == 0) {
-                    l.add("v0.0")
+                    l.add("A")
                 } 
         
                 def beforeColon = l.pop().substring(1)
