@@ -2,8 +2,6 @@ pipeline {
     agent any
 
     environment {
-        PATH_PROJECT = "/root/.jenkins/workspace/java-full-pipeline"
-
         COMMAND = "curl -X POST -H 'Content-type: application/json' --data"
 
         API_A = 'https://hooks.slack.com/services/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'
@@ -70,6 +68,8 @@ pipeline {
             //sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
 
             script {
+                sh 'git tag v0.0'
+                
                 def version_curent = sh(returnStdout: true, script: "git tag")
 
                 echo "${version_curent}"
