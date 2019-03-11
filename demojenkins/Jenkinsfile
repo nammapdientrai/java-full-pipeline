@@ -65,7 +65,7 @@ pipeline {
             script {
                 def version_curent = sh(returnStdout: true, script: "git tag")
 
-                def list = ["A", "B", "C"]
+                def list = version_curent.split()
 
                 echo "${list.size()} =========="
 
