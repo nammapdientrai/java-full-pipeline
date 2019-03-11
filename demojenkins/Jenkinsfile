@@ -68,20 +68,20 @@ pipeline {
                 if (version_curent == "" || version_curent == null) {
                     version_curent = "v0.0"
                     sh "git tag ${version_curent}"
-                } 
+                } else{
+                    def beforeColon = version_curent.substring(1)
+                    double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
 
-                def beforeColon = version_curent.substring(1)
-                double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
+                    double version_auto =  Math.round(rate * 10) / 10 
 
-                double version_auto =  Math.round(rate * 10) / 10 
+                    sh "git tag v${version_auto}"
+                    sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
+                    sh "git push origin v${version_auto}"
 
-                sh "git tag v${version_auto}"
-                sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
-                sh "git push origin v${version_auto}"
+                    sh "git tag -d ${version_curent}"
 
-                sh "git tag -d ${version_curent}"
-
-                echo "SUCCESS"
+                    echo "SUCCESS"
+                }
             }
         }
 
