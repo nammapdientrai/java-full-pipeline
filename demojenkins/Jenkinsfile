@@ -68,10 +68,9 @@ pipeline {
                 if (version_curent == "" || version_curent == null) {
                     version_curent = "v0.0"
                     sh "git tag ${version_curent}"
-
-                    echo "ádsasdadasdadadads"
                 } else{
-                    def beforeColon = version_curent.substring(1)
+                    echo "${version_curent}==============="
+                    /*def beforeColon = version_curent.substring(1)
                     double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
 
                     double version_auto =  Math.round(rate * 10) / 10 
@@ -81,6 +80,7 @@ pipeline {
                     sh "git push origin v${version_auto}"
 
                     sh "git tag -d ${version_curent}"
+                    */
 
                     echo "SUCCESS"
                 }
