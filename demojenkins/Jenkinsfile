@@ -69,7 +69,7 @@ pipeline {
                     version_curent = "v0.0"
                     //sh "git tag ${version_curent}"
                 } else{
-                    echo "========${version_curent}==============="
+                    echo "${version_curent}"
                     /*def beforeColon = version_curent.substring(1)
                     double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
 
