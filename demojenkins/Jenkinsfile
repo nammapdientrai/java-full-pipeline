@@ -64,10 +64,10 @@ pipeline {
 
             script {
                 def version_curent = sh(returnStdout: true, script: "git tag")
-                def l = version_curent.split()
+                def l = (ArrayList<String>) version_curent.split()
 
                 if (l.size() == 0) {
-                    l.push("A")
+                    l.add("A")
                 } 
         
                 def beforeColon = l.pop().substring(1)
