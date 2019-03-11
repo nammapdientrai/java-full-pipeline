@@ -67,7 +67,7 @@ pipeline {
 
                 def list = ["A", "B", "C"]
 
-                echo "${list.size()}"
+                echo "${list.size()} =========="
 
                 if (version_curent == "" || version_curent == null) {
                     version_curent = "v0.0"
