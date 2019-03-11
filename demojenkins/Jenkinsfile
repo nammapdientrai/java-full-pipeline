@@ -61,7 +61,7 @@ pipeline {
             }
         }
 
-        /*stage ("Deloy") {
+        stage ("Deloy") {
             steps {
                 sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && cp demojenkins-0.0.1-SNAPSHOT.jar /home/namth22/artifact/"
                 sh "chmod 777 -R /home/namth22/artifact/."
@@ -72,14 +72,14 @@ pipeline {
                 //sh "cd /home/namth22/ansible-playbook && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
                 //echo "Deloy ...."
             }
-        }*/
+        }
     }
 
     post {
         success {
-            echo "SUCCESS"
+            //echo "SUCCESS"
 
-            //sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
+            sh "${COMMAND} ${NOTIFICATION_SUCCESS} ${API_A}"
 
             //sh "${PATH_PROJECT} && git config --global user.name nammapdientrai"
             //sh "${PATH_PROJECT} && git config --global user.email nammapdientrai@gmail.com"
@@ -109,8 +109,8 @@ pipeline {
         }
 
         failure {
-            echo "FAIL"
-            //sh "${COMMAND} ${NOTIFICATION_FAILTURE} ${API_A}"
+            //echo "FAIL"
+            sh "${COMMAND} ${NOTIFICATION_FAILTURE} ${API_A}"
         }
     }
 }
