@@ -66,7 +66,9 @@ pipeline {
                 def version_curent = sh(returnStdout: true, script: "git tag")
                 def l = version_curent.split()
 
-                if (l.isEmpty() == "true") {
+                echo "${l.isEmpty()}"
+
+                if ("true" == "true") {
                     echo "True"
                 } else{
                     echo "========"
