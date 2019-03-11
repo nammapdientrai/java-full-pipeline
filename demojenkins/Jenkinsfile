@@ -69,7 +69,7 @@ pipeline {
                 if (l.isEmpty()) {
                     echo "True"
                 } else{
-                    echo "${l[0]} ========"
+                    echo "========"
                     
                   /*  def beforeColon = version_curent.substring(1)
                     double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
