@@ -82,7 +82,6 @@ pipeline {
                 sh "git push origin v${version_auto}"
 
                 sh "git tag -d ${version_curent}"
-                sh "git tag -d v${version_auto}"
             }
         }
 
