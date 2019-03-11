@@ -71,7 +71,7 @@ pipeline {
                 def version_curent = sh(returnStdout: true, script: "git tag")
 
                 if (version_curent == "" || version_curent == null) {
-                    version_curent = "v0.0"
+                    echo "null and empty"
                 } else{
                     sh "git tag"
                     //sh "git tag -d ${version_curent}"
