@@ -74,6 +74,7 @@ pipeline {
                     echo "null and empty"
                 } else{
                     sh "git tag"
+                    echo "okokoko"
                     //sh "git tag -d ${version_curent}"
                 }
 
