@@ -2,7 +2,6 @@ node {
     try {
         stage ("Begin") {
             //sh "apt install maven"
-            sh "apt intall open"
             echo "Begin ...."
         }
 
@@ -45,20 +44,15 @@ node {
     } finally {
         def currentResult = currentBuild.result
 
-        echo "${currentResult}"
-        echo "${currentBuild.result}"
-
-        /*def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
-
-        def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
-        def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE ${DATE}\"}'"
+        def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
         def API_A = "https://hooks.slack.com/services/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"
         
-
         if (currentResult == 'SUCCESS') {
+            def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
             //sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
             echo "SUCCESS"
         } else {
+            def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE ${DATE}\"}'"
             //sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_FAILTURE} ${API_A}"
             echo "FAIL"
         }*/
