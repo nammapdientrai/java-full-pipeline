@@ -35,9 +35,12 @@ node {
 
             echo "Deloy ...."
         }
+
+        stage () {
+            currentBuild.result = 'S'
+        }
     } catch (e) {
-        currentBuild.result = 'SUCCESS'
-        echo "catch: ${currentBuild.result}"
+        currentBuild.result = 'F'
     } finally {
         def currentResult = currentBuild.result
 
