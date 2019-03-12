@@ -36,7 +36,7 @@ node {
             echo "Deloy ...."
         }
 
-        stage () {
+        stage ("Check process") {
             currentBuild.result = 'S'
         }
     } catch (e) {
