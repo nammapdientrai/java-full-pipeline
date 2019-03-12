@@ -37,10 +37,12 @@ node {
         }
     } catch (e) {
         currentBuild.result = 'SUCCESS'
+        echo "catch: ${currentBuild.result}"
     } finally {
         def currentResult = currentBuild.result
 
         echo "${currentResult}"
+        echo "${currentBuild.result}"
 
         /*def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
 
