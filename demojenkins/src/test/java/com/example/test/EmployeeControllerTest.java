@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,18 @@ public class EmployeeControllerTest extends DemojenkinsApplicationTests {
 				.andExpect(jsonPath("$.employee_id").value("8458")).andExpect(jsonPath("$.salary").value(79054))
 				.andExpect(jsonPath("$.manager_id").value("84580"));
 
+	}	
+
+	@Test
+	public void testConstructor() throws Exception {
+		Employee e1 = new Employee("0000001", 5000, "0000005");
+		Employee e2 = new Employee("0000002", 1000, "0000004");
+		Employee e3 = new Employee("0000003", 2000, "0000003");
+		Employee e4 = new Employee("0000004", 1000, "0000002");
+		Employee e5 = new Employee("0000005", 4000, "0000001");
+		
+		Assert.assertTrue(e1.getSalary() > e2.getSalary());
+		Assert.assertTrue(e3.getSalary() > e4.getSalary());
+		Assert.assertTrue(e4.getSalary() < e5.getSalary());
 	}
 }
