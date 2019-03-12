@@ -37,10 +37,10 @@ node {
         }
 
         stage ("Check process") {
-            currentBuild.result = 'S'
+            currentBuild.result = 'SUCCESS'
         }
     } catch (e) {
-        currentBuild.result = 'F'
+        currentBuild.result = 'FAIL'
     } finally {
         def currentResult = currentBuild.result
 
