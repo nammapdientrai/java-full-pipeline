@@ -44,12 +44,11 @@ node {
     } finally {
         def currentResult = currentBuild.result
 
-        autoTag()
-
         def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
         def API_A = "https://hooks.slack.com/services/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"
         
         if (currentResult == 'SUCCESS') {
+            autoTag()
             //def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
             //sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
             echo "SUCCESS"
@@ -62,7 +61,21 @@ node {
 }
 
 def autoTag() {
-    echo "Auto tag"
+    def version_curent = sh(returnStdout: true, script: "git tag")
+    def l = (ArrayList<String>) version_curent.split()
+
+    if (l.size() == 0) {
+        l.add("v0.0")
+    } 
+
+    def beforeColon = l.pop().substring(1)
+    double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
+
+    double version_auto =  Math.round(rate * 10) / 10 
+
+    sh "git tag v${version_auto}"
+    sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
+    sh "git push origin v${version_auto}"
 }
 
 
