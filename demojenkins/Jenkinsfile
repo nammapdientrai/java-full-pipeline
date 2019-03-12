@@ -46,9 +46,11 @@ node {
         
 
         if (currentResult == 'SUCCESS') {
-            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
+            //sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
+            echo "SUCCESS"
         } else {
-            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_FAILTURE} ${API_A}"
+            //sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_FAILTURE} ${API_A}"
+            echo "FAIL"
         }
     }
 }
