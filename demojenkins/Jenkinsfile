@@ -36,11 +36,13 @@ node {
             echo "Deloy ...."
         }
     } catch (e) {
-        throw e
+        currentBuild.result = 'SUCCESS'
     } finally {
-        def currentResult = currentBuild.result ? 'SUCCESS' : 'FAILURE'
+        def currentResult = currentBuild.result
 
-        def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
+        echo "${currentResult}"
+
+        /*def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
 
         def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
         def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE ${DATE}\"}'"
@@ -53,6 +55,6 @@ node {
         } else {
             //sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_FAILTURE} ${API_A}"
             echo "FAIL"
-        }
+        }*/
     }
 }
