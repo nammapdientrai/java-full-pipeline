@@ -55,6 +55,6 @@ node {
             def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE ${DATE}\"}'"
             //sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_FAILTURE} ${API_A}"
             echo "FAIL"
-        }*/
+        }
     }
 }
