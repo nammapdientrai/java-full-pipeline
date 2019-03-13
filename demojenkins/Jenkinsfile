@@ -2,8 +2,7 @@ node {
     try {
         docker.image('java-build').inside("-i -d -v /webroot:/root -p 9999:80 --name test1"){
             stage ("Check version") {
-                sh "java -version"
-                sh "mvn -version"
+                sh "cd /root/java-full-pipeline/demojenkins && mvn -f pom.xml clean install"
             }
         }
     } catch (e) {
