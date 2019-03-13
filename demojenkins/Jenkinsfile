@@ -16,7 +16,7 @@ node {
             }
 
             stage ("Deloy") {
-                sh "cd /root/java-full-deloy/ansible && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
+                sh "cd /root/java-full-pipeline/ansible && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
             
                 echo "Deloy ...."
             }
