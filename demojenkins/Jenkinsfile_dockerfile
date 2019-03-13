@@ -1,0 +1,71 @@
+node {
+    try {
+        docker.image('java-build').inside("-i -d -v /webroot:/root -p 9999:80 --name test1"){
+            stage ("Check version") {
+                //sh "cd /root/java-full-pipeline/demojenkins && mvn -f pom.xml clean install"
+            }
+
+            stage ("Build") {
+                sh 'cd /root/java-full-pipeline/demojenkins && mvn -f pom.xml clean package'
+                echo "Build ...."
+            }
+
+            stage ("Test") {
+                //step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+                echo "Test ...."
+            }
+
+            stage ("Deloy") {
+                sh "cd /root/java-full-pipeline/ansible && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
+            
+                echo "Deloy ...."
+            }
+
+            stage ("Check process") {
+                currentBuild.result = 'SUCCESS'
+            }
+        }
+    } catch (e) {
+        currentBuild.result = 'FAIL'
+    } finally {
+        def currentResult = currentBuild.result
+
+        def DATE = sh(returnStdout: true, script: "date +'%d-%m-%y'")
+        def API_A = "https://hooks.slack.com/services/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"
+        
+        if (currentResult == 'SUCCESS') {
+            //autoTag()
+            def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
+
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
+            
+            echo "SUCCESS"
+        } else {
+            def NOTIFICATION_FAILTURE = "'{\"text\":\"NAM == FAILTURE ${DATE}\"}'"
+            sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_FAILTURE} ${API_A}"
+            
+            echo "FAIL"
+        }
+    }
+}
+
+def autoTag() {
+    def version_curent = sh(returnStdout: true, script: "git tag")
+    def l = (ArrayList<String>) version_curent.split()
+
+    if (l.size() == 0) {
+        l.add("v0.0")
+    } 
+
+    def beforeColon = l.pop().substring(1)
+    double rate = (Double.parseDouble("${beforeColon}") + Double.parseDouble("0.1"))
+    double version_auto =  Math.round(rate * 10) / 10 
+
+    sh "git tag v${version_auto}"
+    sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
+    sh "git push origin v${version_auto}"
+}
+
+
+
+

@@ -1,29 +1,43 @@
 node {
     try {
-        docker.image('java-build').inside("-i -d -v /webroot:/root -p 9999:80 --name test1"){
-            stage ("Check version") {
-                //sh "cd /root/java-full-pipeline/demojenkins && mvn -f pom.xml clean install"
-            }
+        stage ("Begin") {
+            sh "apt install maven"
+            echo "Begin ...."
+        }
 
-            stage ("Build") {
-                sh 'cd /root/java-full-pipeline/demojenkins && mvn -f pom.xml clean package'
-                echo "Build ...."
-            }
+        stage ("Build") {
+            sh 'mvn -f demojenkins/pom.xml clean package'
+            echo "Build ...."
+        }
 
-            stage ("Test") {
-                //step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
-                echo "Test ...."
-            }
+        stage ("Test") {
+            step([$class: 'JUnitResultArchiver', testResults: '**/target/surefire-reports/TEST-*.xml'])
+            echo "Test ...."
+        }
 
-            stage ("Deloy") {
-                sh "cd /root/java-full-pipeline/ansible && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
+        stage ("Sonarqube") {
+            sh "mvn -f demojenkins/pom.xml sonar:sonar \
+                    -Dsonar.projectKey=jenkins \
+                    -Dsonar.host.url=http://172.17.0.2:9000 \
+                    -Dsonar.login=61526cfd42034319c30921a2a3445378684fcfcb"
+
+            echo "Sonarqube"           
+        }
+
+        stage ("Deloy") {
+            sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && cp demojenkins-0.0.1-SNAPSHOT.jar /home/namth22/artifact/"
+            sh "chmod 777 -R /home/namth22/artifact/."
             
-                echo "Deloy ...."
-            }
+            sh "cd /root/.jenkins/workspace/java-full-deloy/ansible && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
+            
+            //sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && java -jar demojenkins-0.0.1-SNAPSHOT.jar"
+            //sh "cd /home/namth22/ansible-playbook && ansible-playbook java-deloy.yml -i hosts -u namth22 -b"
 
-            stage ("Check process") {
-                currentBuild.result = 'SUCCESS'
-            }
+            echo "Deloy ...."
+        }
+
+        stage ("Check process") {
+            currentBuild.result = 'SUCCESS'
         }
     } catch (e) {
         currentBuild.result = 'FAIL'
@@ -34,7 +48,7 @@ node {
         def API_A = "https://hooks.slack.com/services/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"
         
         if (currentResult == 'SUCCESS') {
-            //autoTag()
+            autoTag()
             def NOTIFICATION_SUCCESS = "'{\"text\":\"NAM == SUCCESS, ${DATE}\"}'"
 
             sh "curl -X POST -H 'Content-type: application/json' --data ${NOTIFICATION_SUCCESS} ${API_A}"
@@ -65,7 +79,6 @@ def autoTag() {
     sh "git remote set-url origin https://nammapdientrai:Thn025381961@github.com/nammapdientrai/java-full-pipeline.git"
     sh "git push origin v${version_auto}"
 }
-
 
 
 
