@@ -9,8 +9,8 @@
 
     - name: Copy Artifact
       copy:
-        #src: /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar
-        src: /root/java-full-deloy/demojenkins/target/demojenkins-0.0.1-SNAPSHOT.jar
+        src: /home/namth22/artifact/demojenkins-0.0.1-SNAPSHOT.jar
+        #src: /root/java-full-deloy/demojenkins/target/demojenkins-0.0.1-SNAPSHOT.jar
         dest: /home/namth22/artifact/
         owner: root
         group: root
