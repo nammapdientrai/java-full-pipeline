@@ -27,10 +27,6 @@ node {
             echo "Sonarqube"           
         }
 
-        stage ("Check version") {
-            echo "git describe --tags $(git rev-list --tags --max-count=1)"
-        }
-
         stage ("Deloy") {
             /*sh "cd /root/.jenkins/workspace/java-full-deloy/demojenkins/target && cp demojenkins-0.0.1-SNAPSHOT.jar /home/namth22/artifact/"
             sh "chmod 777 -R /home/namth22/artifact/."
