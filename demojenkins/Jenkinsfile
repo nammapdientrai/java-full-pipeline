@@ -67,6 +67,8 @@ node {
 }
 
 def autoTag() {
+    sh "git fetch"
+    
     def version_curent = sh(returnStdout: true, script: "git tag")
     def l = (ArrayList<String>) version_curent.split()
 
