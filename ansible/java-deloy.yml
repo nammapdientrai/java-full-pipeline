@@ -2,10 +2,10 @@
   remote_user: namth22
 
   tasks:
-    #  - name: Install and Update "Maven" package
-    #   apt:
-    #   name: maven
-    #  update_cache: yes
+    - name: Install and Update "Maven" package
+      apt:
+       name: maven
+       update_cache: yes
 
     - name: Copy Artifact
       copy:
