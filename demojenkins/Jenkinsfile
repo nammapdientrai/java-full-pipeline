@@ -28,7 +28,7 @@ node {
         }
 
         stage ("Check version") {
-            sh "git describe --tags $(git rev-list --tags --max-count=1)"
+            echo "git describe --tags $(git rev-list --tags --max-count=1)"
         }
 
         stage ("Deloy") {
